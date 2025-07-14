@@ -35,12 +35,9 @@ async function fetchPromptById(id: string) {
   }
 }
 
-export default async function PromptDetailPage({ 
-  params 
-}: { 
-  params: { id: string } 
-}) {
-  const prompt = await fetchPromptById(params.id);
+export default async function PromptDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const prompt = await fetchPromptById(id);
 
   if (!prompt) {
     notFound();
